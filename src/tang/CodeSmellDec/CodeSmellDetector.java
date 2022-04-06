@@ -118,6 +118,7 @@ public class CodeSmellDetector {
                     badSmellDecs.add(new NONStaticDec(codeSmells, file));
                     badSmellDecs.add(new LogDec(codeSmells, file));
                     badSmellDecs.add(new LogTagDec(codeSmells, file));
+                    badSmellDecs.add(new FileDirDec(codeSmells, file));
                     for(BadSmellDec badSmellDec : badSmellDecs){
                         badSmellDec.codeDec(cu);
                         progressValue++;

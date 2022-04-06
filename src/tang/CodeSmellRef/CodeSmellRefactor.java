@@ -39,6 +39,8 @@ public class CodeSmellRefactor {
             codeRef = new LogTagRef();
         }else if (codeSmell instanceof SQLSmell){
             codeRef = new SQLRef();
+        }else if (codeSmell instanceof FileDirSmell){
+            codeRef = new FileDirRef();
         }
         astRewrite = codeRef.codeRef(codeSmell);
         return astRewrite;
