@@ -51,7 +51,6 @@ public class CodeSmellRefactor {
         PrintWriter pw = new PrintWriter(new FileOutputStream(file, false));
         pw.print(text);
         pw.flush();
-        System.out.println();
         return true;
     }
 }

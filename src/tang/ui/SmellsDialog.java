@@ -158,10 +158,10 @@ public class SmellsDialog extends JDialog {
             TextEdit textEdit = astRewrite.rewriteAST(document, options);
             textEdit.apply(document);
         }
-        System.out.println("document:" + document.get());
+        //System.out.println("document:" + document.get());
         String doc = document.get().replaceAll("(\r\n|\r)", "\n");
         com.intellij.openapi.editor.Document refaDocument = EditorFactory.getInstance().createDocument(doc);
-        System.out.println("refaDocument: " + refaDocument.getText());
+        //System.out.println("refaDocument: " + refaDocument.getText());
         DocumentContent refaDocumentContent = DiffContentFactory.getInstance().create(refaDocument.getText(),
                 JavaClassFileType.INSTANCE);
         assert currentDocumentContent != null;
@@ -189,17 +189,20 @@ public class SmellsDialog extends JDialog {
                 "</body></html>";
 
         @Override
-        public Component getListCellRendererComponent(JList list, Object value, int index, boolean isSelected, boolean cellHasFocus) {
+        public Component getListCellRendererComponent
+                (JList list, Object value, int index, boolean isSelected, boolean cellHasFocus) {
             CodeSmell codeSmell = (CodeSmell) value;
             JLabel label = new JLabel();
             if (isSelected) {
                 label.setForeground(Color.RED);
                 label.setBorder(BorderFactory.createLineBorder(Color.BLACK));
-                label.setText(String.format(selected, index + 1, codeSmell.getName(), codeSmell.getFile().getName()));
+                label.setText(String.format(selected, index + 1,
+                        codeSmell.getName(), codeSmell.getFile().getName()));
             } else {
                 label.setForeground(Color.BLACK);
                 label.setBorder(BorderFactory.createLineBorder(Color.DARK_GRAY));
-                label.setText(String.format(notSelected, index + 1, codeSmell.getName(), codeSmell.getFile().getName()));
+                label.setText(String.format(notSelected, index + 1,
+                        codeSmell.getName(), codeSmell.getFile().getName()));
             }
             return label;
         }
@@ -229,12 +232,6 @@ public class SmellsDialog extends JDialog {
         panel1.add(scrollPane1, new GridConstraints(0, 0, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_BOTH, GridConstraints.SIZEPOLICY_WANT_GROW, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_WANT_GROW, null, new Dimension(160, 57), null, 0, false));
         codeSmellList = new JList();
         scrollPane1.setViewportView(codeSmellList);
-        panelCode = new JPanel();
-        panelCode.setLayout(new GridLayoutManager(1, 1, new Insets(0, 0, 0, 0), -1, -1));
-        jPanel.add(panelCode, new GridConstraints(0, 1, 2, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_BOTH, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_WANT_GROW, null, null, null, 0, false));
-        btn_refactor = new JButton();
-        btn_refactor.setText("重构");
-        jPanel.add(btn_refactor, new GridConstraints(2, 1, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
         final JPanel panel2 = new JPanel();
         panel2.setLayout(new GridLayoutManager(1, 1, new Insets(5, 5, 5, 5), -1, -1));
         jPanel.add(panel2, new GridConstraints(0, 2, 3, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_BOTH, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, null, null, null, 0, false));
@@ -243,6 +240,15 @@ public class SmellsDialog extends JDialog {
         infoText = new JTextPane();
         infoText.setContentType("text/html");
         scrollPane2.setViewportView(infoText);
+        final JPanel panel3 = new JPanel();
+        panel3.setLayout(new GridLayoutManager(1, 1, new Insets(0, 0, 0, 0), -1, -1));
+        jPanel.add(panel3, new GridConstraints(0, 1, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_BOTH, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, null, null, null, 0, false));
+        panelCode = new JPanel();
+        panelCode.setLayout(new GridLayoutManager(1, 1, new Insets(0, 0, 0, 0), -1, -1));
+        panel3.add(panelCode, new GridConstraints(0, 0, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_BOTH, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_WANT_GROW, null, null, null, 0, false));
+        btn_refactor = new JButton();
+        btn_refactor.setText("重构");
+        jPanel.add(btn_refactor, new GridConstraints(1, 1, 2, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
     }
 
     /**

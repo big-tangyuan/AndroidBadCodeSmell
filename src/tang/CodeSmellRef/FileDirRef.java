@@ -18,6 +18,7 @@ public class FileDirRef extends CodeRef {
         classInstanceCreation.arguments().get(0);
         astRewrite.replace(classInstanceCreation, changeCICreation(classInstanceCreation), null);
         ListRewrite listRewrite = astRewrite.getListRewrite(fileDirSmell.getType(), TypeDeclaration.BODY_DECLARATIONS_PROPERTY);
+        /*
         VariableDeclarationFragment varDecFrag = classInstanceCreation.getAST().newVariableDeclarationFragment();
         varDecFrag.setName(classInstanceCreation.getAST().newSimpleName("FILE_PATH"));
         StringLiteral stringLiteral = classInstanceCreation.getAST().newStringLiteral();
@@ -25,6 +26,7 @@ public class FileDirRef extends CodeRef {
         varDecFrag.setInitializer(stringLiteral);
         FieldDeclaration newFieldDec = classInstanceCreation.getAST().newFieldDeclaration(varDecFrag);
         newFieldDec.setType(classInstanceCreation.getAST().newSimpleType(classInstanceCreation.getAST().newSimpleName("String")));
+        */
         listRewrite.insertFirst(addFilePath(classInstanceCreation), null);
         return astRewrite;
     }
@@ -34,7 +36,7 @@ public class FileDirRef extends CodeRef {
         VariableDeclarationFragment varDecFrag = ast.newVariableDeclarationFragment();
         varDecFrag.setName(ast.newSimpleName("FILE_PATH"));
         StringLiteral stringLiteral = ast.newStringLiteral();
-        stringLiteral.setLiteralValue("Please use relevant API interface to obtain file directory.");
+        stringLiteral.setLiteralValue("Please use relevant API interface to obtain file directory:" + classInstanceCreation.arguments().get(0));
         varDecFrag.setInitializer(stringLiteral);
         FieldDeclaration newFieldDec = ast.newFieldDeclaration(varDecFrag);
         newFieldDec.setType(ast.newSimpleType(classInstanceCreation.getAST().newSimpleName("String")));

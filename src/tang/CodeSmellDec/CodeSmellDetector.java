@@ -57,7 +57,7 @@ public class CodeSmellDetector {
     public void startCodeDec() throws InterruptedException, IOException, BadLocationException {
         codeDetection.start();
         //System.out.println("current file:" + filePath);
-        System.out.println("CodeDetection start");
+        System.out.println("***** CodeDetection start *****************");
         synchronized (codeDetection) {
             while(codeDetection.decResult == null){
                 codeDetection.wait();
@@ -94,7 +94,7 @@ public class CodeSmellDetector {
              */
             List<File> xmlFilesWithoutDup = new ArrayList<>(new LinkedHashSet<>(xmlFiles));
             for(File file : xmlFilesWithoutDup){
-                System.out.println("XMLfile:" + file.getAbsolutePath());
+                //System.out.println("XMLfile:" + file.getAbsolutePath());
                 DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
                 DocumentBuilder builder = factory.newDocumentBuilder();
                 Document dom = builder.parse(file);
@@ -103,14 +103,14 @@ public class CodeSmellDetector {
             }
             List<File> javaFilesWithoutDup = new ArrayList<>(new LinkedHashSet<>(javaFiles));
             for(File file : javaFilesWithoutDup){
-                System.out.println("Javafile:" + file.getAbsolutePath());
+                //System.out.println("Javafile:" + file.getAbsolutePath());
                 ASTParser astParser = ASTParser.newParser(AST.JLS11);
                 //assert input != null;
                 //System.out.println("get input:" + Arrays.toString(new String(input).toCharArray()));
                 astParser.setSource(new String(Files.readAllBytes(Paths.get(file.getAbsolutePath()))).toCharArray());
                 astParser.setKind(ASTParser.K_COMPILATION_UNIT);
                 CompilationUnit cu = (CompilationUnit) astParser.createAST(null);
-                System.out.println("created cu:" + cu.getPackage());
+                //System.out.println("created cu:" + cu.getPackage());
                 if(cu.getPackage() != null){
                     badSmellDecs = new ArrayList<>();
                     badSmellDecs.add(new HMDec(codeSmells, file));
